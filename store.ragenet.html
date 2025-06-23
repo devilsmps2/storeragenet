@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="shortcut icon" href="ragemc.png" type="image/x-icon">
+  <title>RAGEMC STORE</title>
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1c1c2e, #262640, #302f4a);
+      color: #ddd;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      line-height: 1.5;
+    }
+    nav {
+      backdrop-filter: blur(10px);
+      background: rgba(20, 20, 35, 0.75);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+    }
+    nav h1 {
+      color: #8fc1ff;
+      font-weight: 700;
+      font-size: 1.9rem;
+      letter-spacing: 3px;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.3s ease;
+      text-shadow: none; /* softened glow */
+    }
+    nav h1:hover {
+      color: #a0c8ff;
+      text-shadow: 0 0 5px #8fc1ff; /* subtle glow on hover */
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav ul li a {
+      color: #aaa;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      transition: background 0.3s ease, color 0.3s ease;
+      user-select: none;
+    }
+    nav ul li a:hover {
+      color: #8fc1ff;
+      background: rgba(143, 193, 255, 0.15);
+    }
+
+    header {
+      padding: 100px 20px 50px;
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 800;
+      color: #a0c8ff;
+      text-shadow: 0 0 6px #5a7ad1; /* softened glow */
+      user-select: none;
+      letter-spacing: 2px;
+    }
+
+    .intro {
+      max-width: 850px;
+      margin: 0 auto 70px;
+      text-align: center;
+      font-size: 1.3rem;
+      color: #bbb;
+      padding: 0 20px;
+      user-select: none;
+    }
+
+    .server-ip {
+      text-align: center;
+      font-size: 1.4rem;
+      color: #7ad1ff;
+      margin-bottom: 40px;
+      user-select: none;
+    }
+
+    .store {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+    }
+
+    .rank {
+      background: rgba(40, 40, 70, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 18px;
+      box-shadow:
+        0 6px 18px rgba(70, 90, 160, 0.5);
+      width: 310px;
+      padding: 2.5rem 2rem 3rem;
+      color: #e0e6f8;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .rank:hover {
+      transform: translateY(-15px);
+      box-shadow:
+        0 10px 30px rgba(100, 140, 255, 0.4), /* softer glow */
+        0 0 8px rgba(100, 140, 255, 0.3);
+      background: rgba(50, 50, 100, 0.85);
+      backdrop-filter: blur(10px);
+    }
+
+    .rank h2 {
+      font-size: 2rem;
+      margin-bottom: 0.7rem;
+      color: #9bbaff;
+      text-shadow: 0 0 4px #759edd; /* reduced glow */
+    }
+
+    .price {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #7ad1ff;
+      margin: 1.1rem 0 1.6rem;
+      text-shadow: 0 0 6px #7ad1ff; /* gentler glow */
+    }
+
+    .rank p,
+    .rank ul {
+      font-size: 1.1rem;
+      color: #c7cfe5;
+      margin-bottom: 1.2rem;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .rank ul {
+      list-style: none;
+      padding-left: 1.25rem;
+    }
+    .rank ul li {
+      margin-bottom: 0.9rem;
+      position: relative;
+      padding-left: 1.5rem;
+      color: #c7cfe5;
+      font-weight: 600;
+    }
+    .rank ul li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #7ad1ff;
+      font-weight: 900;
+      font-size: 1.1rem;
+      top: 0;
+      line-height: 1;
+    }
+
+    .buy-btn {
+      background: linear-gradient(90deg, #5b8cff, #7ad1ff);
+      border: none;
+      color: #fff;
+      padding: 15px 0;
+      border-radius: 50px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 18px rgba(122, 209, 255, 0.4); /* softer shadow */
+      user-select: none;
+      align-self: center;
+      width: 100%;
+      max-width: 220px;
+      margin-top: auto;
+    }
+    .buy-btn:hover:not(:disabled) {
+      background: linear-gradient(90deg, #7ad1ff, #5b8cff);
+      transform: scale(1.06);
+      box-shadow: 0 7px 22px rgba(122, 209, 255, 0.6); /* softer hover shadow */
+    }
+    .buy-btn:disabled {
+      background: #555;
+      cursor: not-allowed;
+      box-shadow: none;
+      opacity: 0.5;
+      transform: none;
+    }
+
+    .most-popular {
+      border: 3px solid #7ad1ff;
+    }
+    .most-popular::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      background: #7ad1ff;
+      color: #1a2a47;
+      font-weight: 900;
+      padding: 8px 16px;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      box-shadow: 0 3px 12px rgba(122, 209, 255, 0.4);
+      user-select: none;
+      text-transform: uppercase;
+    }
+
+    footer {
+      background-color: #1a1a2e;
+      color: #a3a8b8;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 1rem;
+      user-select: none;
+      border-top: 1px solid #2e2e52;
+      letter-spacing: 0.04em;
+    }
+    footer a {
+      color: #7ad1ff;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #a0c8ff;
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .store {
+        flex-direction: column;
+        align-items: center;
+      }
+      .rank {
+        width: 90%;
+        max-width: 350px;
+      }
+    }
+  </style>
+</head>
+<body>
+    
+  <nav>
+    
+    <h1 onclick="scrollToSection('home')">RAGEMC STORE</h1>
+    <ul>
+      <li><a href="#" onclick="scrollToSection('home')">Home</a></li>
+      <li><a href="#" onclick="scrollToSection('store')">Ranks</a></li>
+      <li><a href="#" onclick="scrollToSection('contact')">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header id="home">Welcome to RAGEMC Ranks Store</header>
+
+  <div class="intro">
+    <p>Unlock exclusive ranks, perks, and powers on <strong style="color:#7ad1ff;">play.ragenet.xyz</strong>! From custom tags to priority queue and special commands — find your perfect rank and elevate your Minecraft experience.</p>
+  </div>
+
+  <div class="server-ip">
+    Server IP: <strong>play.ragenet.xyz</strong>
+  </div>
+
+  <div class="store" id="store">
+    <div class="rank">
+      <h2>🏅 Member</h2>
+      <p>Free basic access to the server.</p>
+      <div class="price">Free</div>
+      <button class="buy-btn" disabled>Free</button>
+    </div>
+    <div class="rank">
+      <h2>🌟 VIP</h2>
+      <div class="price">$79</div>
+      <ul>
+        <li>Chat color</li>
+        <li>VIP tag</li>
+      </ul>
+      <button class="buy-btn" onclick="buy('VIP')">Buy Now</button>
+    </div>
+    <div class="rank">
+      <h2>💎 MVP</h2>
+      <div class="price">$120</div>
+      <ul>
+        <li>All VIP perks</li>
+        <li>/repair command</li>
+        <li>2 homes</li>
+        <li>Custom prefix</li>
+      </ul>
+      <button class="buy-btn" onclick="buy('MVP')">Buy Now</button>
+    </div>
+    <div class="rank most-popular">
+      <h2>🛡️ ELITE</h2>
+      <div class="price">$200</div>
+      <ul>
+        <li>All MVP perks</li>
+        <li>5 homes</li>
+        <li>Priority queue</li>
+      </ul>
+      <button class="buy-btn" onclick="buy('ELITE')">Buy Now</button>
+    </div>
+    <div class="rank">
+      <h2>🔥 IMMORTAL</h2>
+      <div class="price">$289</div>
+      <ul>
+        <li>All Elite perks</li>
+        <li>/disguise command</li>
+        <li>Unlimited homes</li>
+      </ul>
+      <button class="buy-btn" onclick="buy('IMMORTAL')">Buy Now</button>
+    </div>
+    <div class="rank">
+      <h2>👑 DEADLIEST</h2>
+      <div class="price">$300</div>
+      <ul>
+        <li>All perks</li>
+        <li>Crate keys</li>
+        <li>Monthly gifts</li>
+        <li>More exclusive features</li>
+      </ul>
+      <button class="buy-btn" onclick="buy('DEADLIEST')">Buy Now</button>
+    </div>
+  </div>
+
+  <footer id="contact">
+    &copy; 2025 RageNet Server. All rights reserved.<br />
+    Join our community on <a href="https://dsc.gg/ragemcnet" target="_blank" rel="noopener noreferrer">Discord</a>!
+  </footer>
+
+  <script>
+    function buy(rank) {
+      window.open("https://dsc.gg/ragemcnet", "_blank");
+    }
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
